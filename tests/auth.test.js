@@ -1,7 +1,19 @@
 import request from "supertest";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import app from "../src/app.js";
 
+dotenv.config();
+
 describe("Auth Routes", () => {
+  beforeAll(async () => {
+    await mongoose.connect(process.env.MONGO_URI);
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.dropDatabase();
+    await mongoose.connection.close();
+  });
 
   let token;
 
