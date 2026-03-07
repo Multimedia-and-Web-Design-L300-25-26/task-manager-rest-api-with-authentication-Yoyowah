@@ -1,10 +1,16 @@
 import request from "supertest";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import app from "../src/app.js";
+
+dotenv.config();
 
 let token;
 let taskId;
 
 beforeAll(async () => {
+  await mongoose.connect(process.env.MONGO_URI);
+
   // Register
   await request(app)
     .post("/api/auth/register")
@@ -23,6 +29,11 @@ beforeAll(async () => {
     });
 
   token = res.body.token;
+});
+
+afterAll(async () => {
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
 });
 
 describe("Task Routes", () => {
@@ -56,6 +67,15 @@ describe("Task Routes", () => {
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  it("should delete a task", async () => {
+    const res = await request(app)
+      .delete(`/api/tasks/${taskId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("Task deleted");
   });
 
 });

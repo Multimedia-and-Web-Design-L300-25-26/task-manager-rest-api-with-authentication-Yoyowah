@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/vq8_GOgi)
 # Task Manager REST API with Authentication
 
 ## Overview
@@ -58,6 +57,8 @@ Run the automated tests using:
 ```bash
 npm test
 ```
+
+> ⚠️ **Windows users:** the test script has been updated for cross-platform compatibility. It launches Jest with `--experimental-vm-modules` so ES modules work correctly.
 
 All tests must pass before submission.
 
