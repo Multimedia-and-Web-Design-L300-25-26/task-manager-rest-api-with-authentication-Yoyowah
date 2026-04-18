@@ -58,6 +58,8 @@ Run the automated tests using:
 npm test
 ```
 
+> ⚠️ **Windows users:** the test script has been updated for cross-platform compatibility. It launches Jest with `--experimental-vm-modules` so ES modules work correctly.
+
 All tests must pass before submission.
 
 ---
